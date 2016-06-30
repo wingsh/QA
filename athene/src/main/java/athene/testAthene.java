@@ -81,6 +81,7 @@ public class testAthene {
 			login.submit();
 			Thread.sleep(3000);
 			
+			// Service
             WebElement m_menu_service = driver.findElement(By.xpath("//*[contains(text(), 'Service')]"));
             m_menu_service.click();
 			Thread.sleep(1000);
@@ -100,7 +101,44 @@ public class testAthene {
 			
 			if (!driver.getPageSource().contains("New Network Service"))
 				driver.close();
-
+			
+			// Object
+            WebElement m_menu_object = driver.findElement(By.xpath("//*[contains(text(), 'Object')]"));
+            m_menu_object.click();
+			Thread.sleep(1000);
+			
+            //Check Node Page
+            WebElement s_menu_node = driver.findElement(By.xpath("//*[contains(text(), 'Node')]"));
+            s_menu_node.click();
+			Thread.sleep(1000);
+			
+			if (!driver.getPageSource().contains("Athene NODE Setting"))
+				driver.close();
+			
+            //Check Network Page
+            WebElement s_menu_network = driver.findElement(By.xpath("//*[contains(text(), 'Network')]"));
+            s_menu_network.click();
+			Thread.sleep(1000);
+			
+			if (!driver.getPageSource().contains("Athene NETWORK Setting"))
+				driver.close();
+			
+            //Check Range Page
+            WebElement s_menu_range = driver.findElement(By.xpath("//*[contains(text(), 'Range')]"));
+            s_menu_range.click();
+			Thread.sleep(1000);
+			
+			if (!driver.getPageSource().contains("Athene RANGE Setting"))
+				driver.close();
+			
+	        //Check Group Page
+            WebElement s_menu_group = driver.findElement(By.xpath("//*[contains(text(), 'Group')]"));
+            s_menu_group.click();
+			Thread.sleep(1000);
+			
+			if (!driver.getPageSource().contains("Athene GROUP Setting"))
+				driver.close();
+			
 			} catch (Error e) {
 	            verificationErrors.append(e.toString());
 		}

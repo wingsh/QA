@@ -39,8 +39,8 @@ public class testAthene {
 			WebElement passwd = driver.findElement(By.name("pw"));
 			WebElement login = driver.findElement(By.id("submit"));
 			Thread.sleep(1000);
-
 			
+			// Case1. invaild user
 			username.sendKeys("invaild");
 			Thread.sleep(1000);
 			passwd.sendKeys("invaild");
@@ -51,13 +51,28 @@ public class testAthene {
 			
 			WebElement loginError = driver.findElement(By.className("ng-binding"));
 			String loginErrormsg = loginError.getAttribute("innerHTML");
-			//System.out.println(loginErrormsg);
+			System.out.println(loginErrormsg);
 			
 			assertEquals(loginErrormsg, "invalid password or id");
 			
 			username.clear();
 			passwd.clear();
+			
+			// Case2. invaild password
+			username.sendKeys("admin");
+			Thread.sleep(1000);
+			passwd.sendKeys("invaild");
+			Thread.sleep(1000);
+						
+			login.submit();
+			Thread.sleep(3000);
+						
+			assertEquals(loginErrormsg, "invalid password or id");
+			
+			username.clear();
+			passwd.clear();
 
+			// Case3. vaild user & password
 			username.sendKeys("admin");
 			Thread.sleep(1000);
 			passwd.sendKeys("openstack");
@@ -65,14 +80,26 @@ public class testAthene {
 			
 			login.submit();
 			Thread.sleep(3000);
-
 			
             WebElement m_menu_service = driver.findElement(By.xpath("//*[contains(text(), 'Service')]"));
             m_menu_service.click();
+			Thread.sleep(1000);
+			
+            //Check Service List Page
+            WebElement s_menu_serviceList = driver.findElement(By.xpath("//*[contains(text(), 'Service List')]"));
+            s_menu_serviceList.click();
+			Thread.sleep(1000);
+			
+			if (!driver.getPageSource().contains("Athene Chaining Services"))
+				driver.close();
             
+            //Check Add New Page
             WebElement s_menu_addnew = driver.findElement(By.xpath("//*[contains(text(), 'Add New')]"));
             s_menu_addnew.click();
-            
+			Thread.sleep(1000);     
+			
+			if (!driver.getPageSource().contains("New Network Service"))
+				driver.close();
 
 			} catch (Error e) {
 	            verificationErrors.append(e.toString());

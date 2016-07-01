@@ -4,19 +4,12 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import com.gargoylesoftware.htmlunit.javascript.host.Console;
 
 import org.junit.*;
 import static org.junit.Assert.*;
 
-public class testAthene {
-	protected WebDriver driver;
-	JavascriptExecutor executor = (JavascriptExecutor)driver;
-	
+public class testLogin {
+	protected WebDriver driver;	
 	private StringBuffer verificationErrors = new StringBuffer();
 	
 	@Before
@@ -32,15 +25,13 @@ public class testAthene {
 	}
 	
 	@Test
-	public void testAtheneAccess() throws InterruptedException {
+	public void testInvaildUser() throws InterruptedException {
 		try {
 			// find element user name & password & submit			
 			WebElement username = driver.findElement(By.name("userid"));
 			WebElement passwd = driver.findElement(By.name("pw"));
 			WebElement login = driver.findElement(By.id("submit"));
-			Thread.sleep(1000);
 			
-			// Case1. invaild user
 			username.sendKeys("invaild");
 			Thread.sleep(1000);
 			passwd.sendKeys("invaild");
@@ -57,8 +48,18 @@ public class testAthene {
 			
 			username.clear();
 			passwd.clear();
+		} catch (Error e) {
+            verificationErrors.append(e.toString());
+		}
+	}
+	@Test
+	public void testInvaildPasswd() throws InterruptedException {
+		try {
+			// find element user name & password & submit			
+			WebElement username = driver.findElement(By.name("userid"));
+			WebElement passwd = driver.findElement(By.name("pw"));
+			WebElement login = driver.findElement(By.id("submit"));
 			
-			// Case2. invaild password
 			username.sendKeys("admin");
 			Thread.sleep(1000);
 			passwd.sendKeys("invaild");
@@ -66,13 +67,28 @@ public class testAthene {
 						
 			login.submit();
 			Thread.sleep(3000);
+			
+			WebElement loginError = driver.findElement(By.className("ng-binding"));
+			String loginErrormsg = loginError.getAttribute("innerHTML");
+			System.out.println(loginErrormsg);
 						
 			assertEquals(loginErrormsg, "invalid password or id");
 			
 			username.clear();
 			passwd.clear();
 
-			// Case3. vaild user & password
+		} catch (Error e) {
+            verificationErrors.append(e.toString());
+		}
+	}
+	@Test
+	public void testVail() throws InterruptedException {
+		try {
+			// find element user name & password & submit			
+			WebElement username = driver.findElement(By.name("userid"));
+			WebElement passwd = driver.findElement(By.name("pw"));
+			WebElement login = driver.findElement(By.id("submit"));
+			
 			username.sendKeys("admin");
 			Thread.sleep(1000);
 			passwd.sendKeys("openstack");
@@ -149,7 +165,7 @@ public class testAthene {
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
         }
-         
+        driver.quit();       
     }
 
 }

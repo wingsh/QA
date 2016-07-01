@@ -1,6 +1,8 @@
 package athene;
 
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
@@ -95,10 +97,12 @@ public class testLogin {
 			Thread.sleep(1000);
 			
 			login.submit();
-			Thread.sleep(3000);
+			Thread.sleep(1000);
 			
-			// Service
             WebElement m_menu_service = driver.findElement(By.xpath("//*[contains(text(), 'Service')]"));
+			WebDriverWait wait = new WebDriverWait(driver, 10);
+			wait.until(ExpectedConditions.visibilityOf(m_menu_service));
+			
             m_menu_service.click();
 			Thread.sleep(1000);
 			

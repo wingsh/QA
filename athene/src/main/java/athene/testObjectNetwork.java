@@ -207,6 +207,19 @@ public class testObjectNetwork {
 					fail();
 				}
 		    }
+		    
+			Thread.sleep(3000);
+
+			driver.findElement(By.xpath("(//input[@type='checkbox'])[last()]")).click();
+			Thread.sleep(1000);
+
+			WebElement btn_del2 = driver.findElement(By.xpath("//i[@class='fa fa-minus fa-fw']"));
+			WebElement btn_pub2 = driver.findElement(By.xpath("//i[@class='fa fa-minus fa-fw']"));
+
+
+			btn_del2.click();
+			Thread.sleep(1000);
+			btn_pub2.click();
 			
 			} catch (Error e) {
 	            verificationErrors.append(e.toString());
@@ -220,7 +233,7 @@ public class testObjectNetwork {
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
         }
-        //driver.quit();
+        driver.quit();
     }
 
 }

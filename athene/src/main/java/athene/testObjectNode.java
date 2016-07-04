@@ -124,6 +124,7 @@ public class testObjectNode {
 		try {
 			// 생성된 마지막 Row의 Node checkbox
 			driver.findElement(By.xpath("(//input[@type='checkbox'])[last()]")).click();
+
 			// Publish Button
 			WebElement btn_del = driver.findElement(By.xpath("//i[@class='fa fa-minus fa-fw']"));
 		    WebElement btn_pub = driver.findElement(By.xpath("//i[@class='fa fa-floppy-o fa-fw']"));
@@ -145,6 +146,7 @@ public class testObjectNode {
 					fail();
 				}
 		    }
+
 			
 			} catch (Error e) {
 	            verificationErrors.append(e.toString());
@@ -158,7 +160,7 @@ public class testObjectNode {
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
         }
-        //driver.quit();
+        driver.quit();
     }
 
 }

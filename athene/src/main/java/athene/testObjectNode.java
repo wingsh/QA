@@ -83,13 +83,13 @@ public class testObjectNode {
 		    // Page Refresh
 		    driver.navigate().refresh();
 		    
-			/*
+			
 			WebElement createdSid = driver.findElement(By.xpath("(//label[@class='ng-scope ng-isolate-scope'])[last()-3]"));
 			String afterSid = createdSid.getAttribute("innerHTML");
 			System.out.println(afterSid);
 			
 			assertEquals(beforeSid,afterSid);
-			*/
+			
 
 			} catch (Error e) {
 	            verificationErrors.append(e.toString());

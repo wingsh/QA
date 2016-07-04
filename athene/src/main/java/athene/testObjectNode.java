@@ -3,12 +3,21 @@ package athene;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.gargoylesoftware.htmlunit.javascript.host.Element;
+
+import java.util.List;
+
+//import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
-
+import org.openqa.selenium.JavascriptExecutor;
 import org.junit.*;
 import static org.junit.Assert.*;
+
+import java.util.concurrent.TimeUnit;
 
 public class testObjectNode {
 	protected WebDriver driver;	
@@ -35,6 +44,7 @@ public class testObjectNode {
 		
 		login.submit();
 		
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         WebElement m_menu_object = driver.findElement(By.xpath("//*[contains(text(), 'Object')]"));
 		WebDriverWait wait = new WebDriverWait(driver, 10);
 		wait.until(ExpectedConditions.visibilityOf(m_menu_object));
@@ -42,13 +52,40 @@ public class testObjectNode {
 		
         WebElement s_menu_node = driver.findElement(By.xpath("//*[contains(text(), 'Node')]"));
 		s_menu_node.click();
+		
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 	}
 	
 	@Test
 	public void testNode() throws InterruptedException {
 		try {
 			// Scenario
-			
+			// Add a Node
+			Thread.sleep(1000);
+		    WebElement btn_add = driver.findElement(By.xpath("//i[@class='fa fa-plus fa-fw']"));
+	        WebElement btn_del = driver.findElement(By.xpath("//i[@class='fa fa-minus fa-fw']"));
+		    WebElement btn_pub = driver.findElement(By.xpath("//i[@class='fa fa-floppy-o fa-fw']"));
+
+		    btn_add.click();
+			    
+		    List<WebElement> sids = driver.findElements(By.xpath("//label[@class='ng-scope ng-isolate-scope']"));
+		    System.out.println(sids.get(0).getAttribute("innerHTML"));
+		    
+		    List<WebElement> name = driver.findElements(By.xpath("//input[@type='text']"));
+		    WebElement nameValue = name.get(1);
+		    nameValue.sendKeys("autotest");
+		    
+		    List<WebElement> ipv4 = driver.findElements(By.xpath("//input[@type='text']"));
+		    WebElement ipv4Value = ipv4.get(2);
+		    ipv4Value.sendKeys("0.0.0.0");
+
+		    List<WebElement> description = driver.findElements(By.xpath("//input[@type='text']"));
+		    WebElement descriptionVaule = description.get(3);
+		    descriptionVaule.sendKeys("for Auto Test");
+		    
+		    Thread.sleep(1000);
+		    btn_pub.click();
+		    
 			} catch (Error e) {
 	            verificationErrors.append(e.toString());
 		}
@@ -59,7 +96,7 @@ public class testObjectNode {
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
         }
-        driver.quit();
+        //driver.quit();
     }
 
 }

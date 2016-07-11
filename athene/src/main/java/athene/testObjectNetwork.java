@@ -1,5 +1,10 @@
 package athene;
 
+import org.testng.annotations.*;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.*;
+
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -9,8 +14,6 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
-import org.junit.*;
-import static org.junit.Assert.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -18,7 +21,7 @@ public class testObjectNetwork {
 	protected WebDriver driver;	
 	private StringBuffer verificationErrors = new StringBuffer();
 	
-	@Before
+	@BeforeTest
 	public void setUp(){
 		System.setProperty("webdriver.chrome.driver", "chromedriver");
 		driver = new ChromeDriver();
@@ -227,14 +230,13 @@ public class testObjectNetwork {
 		}
 	}
 
-	@After
+	@AfterTest
     public void tearDown() throws Exception {
-		
+        driver.quit();
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
         }
-        driver.quit();
     }
 
 }

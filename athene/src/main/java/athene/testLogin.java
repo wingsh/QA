@@ -1,5 +1,10 @@
 package athene;
 
+import org.testng.annotations.*;
+import org.testng.annotations.Test;
+
+import static org.testng.Assert.*;
+
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -7,14 +12,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.By;
 
-import org.junit.*;
-import static org.junit.Assert.*;
+//import org.junit.*;
+//import static org.junit.Assert.*;
 
 public class testLogin {
 	protected WebDriver driver;	
 	private StringBuffer verificationErrors = new StringBuffer();
 	
-	@Before
+	@BeforeTest
 	public void setUp(){
 		System.setProperty("webdriver.chrome.driver", "chromedriver");
 		driver = new ChromeDriver();
@@ -25,7 +30,7 @@ public class testLogin {
 	    String loginWindow = driver.getWindowHandle();
 	    driver.switchTo().window(loginWindow);  
 	}
-	
+
 	@Test
 	public void testInvaildUser() throws InterruptedException {
 		try {
@@ -84,7 +89,7 @@ public class testLogin {
 		}
 	}
 	@Test
-	public void testVail() throws InterruptedException {
+	public void testVaild() throws InterruptedException {
 		try {
 			// find element user name & password & submit			
 			WebElement username = driver.findElement(By.name("userid"));
@@ -163,13 +168,13 @@ public class testLogin {
 	            verificationErrors.append(e.toString());
 		}
 	}
-    @After
+    @AfterTest
     public void tearDown() throws Exception {
+        driver.quit();       
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
-            fail(verificationErrorString);
+        	fail(verificationErrorString);
         }
-        driver.quit();       
     }
 
 }

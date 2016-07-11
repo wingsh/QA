@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="testAthene" >
+	<test name="Login" >
+		<classes>
+			<class name="athene.testLogin" />
+		</classes>
+	</test>
+	<test name="Object" >
+		<classes>
+			<class name="athene.testObjectNode" /> 
+			<class name="athene.testObjectNetwork" /> 
+			<class name="athene.testObjectRange" /> 
+			<class name="athene.testObjectGroup" /> 
+		</classes>
+	</test>
+</suite>

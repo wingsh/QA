@@ -21,7 +21,7 @@ public class testObjectNode {
 	public void setUp(){
 		System.setProperty("webdriver.chrome.driver", "chromedriver");
 		driver = new ChromeDriver();
-		driver.get("http://10.61.11.50:8009/");
+		driver.get("http://10.61.11.71:8009/");
 		
     	driver.manage().window().maximize();
 
@@ -33,8 +33,8 @@ public class testObjectNode {
 		WebElement login = driver.findElement(By.id("submit"));		
 
 		// Login
-		username.sendKeys("admin");
-		passwd.sendKeys("openstack");
+		username.sendKeys("athene");
+		passwd.sendKeys("athene");
 		
 		login.submit();
 		
@@ -89,7 +89,7 @@ public class testObjectNode {
 			System.out.println(afterSid);
 			
 			assertEquals(beforeSid,afterSid);
-			
+		    Thread.sleep(3000);			
 
 			} catch (Error e) {
 	            verificationErrors.append(e.toString());
@@ -122,6 +122,10 @@ public class testObjectNode {
 	@Test
 	public void testDeleteNode() throws InterruptedException {
 		try {
+			WebElement createdSid = driver.findElement(By.xpath("(//label[@class='ng-scope ng-isolate-scope'])[last()-3]"));
+			String afterSid = createdSid.getAttribute("innerHTML");
+			System.out.println(afterSid);
+			
 			// 생성된 마지막 Row의 Node checkbox
 			driver.findElement(By.xpath("(//input[@type='checkbox'])[last()]")).click();
 
@@ -135,20 +139,21 @@ public class testObjectNode {
 
 		    driver.navigate().refresh();
 			
-		    List<WebElement> sids = driver.findElements(By.xpath("//label[@class='ng-scope ng-isolate-scope']"));
-			WebElement createdSid = driver.findElement(By.xpath("(//label[@class='ng-scope ng-isolate-scope'])[last()-3]"));
-			String afterSid = createdSid.getAttribute("innerHTML");
-			System.out.println(afterSid);
-			
-		    for (WebElement sid : sids){
-		    	System.out.println(sid.getAttribute("innerHTML"));
-				if (sid.equals(afterSid)){
-					fail();
-				}
-		    }
-
-			
-			} catch (Error e) {
+		    WebElement nodeTable = driver.findElement(By.xpath("//table[@ng-dblclick='model.mouseClick(attr, $event)']"));
+		    List<WebElement> rows = nodeTable.findElements(By.tagName("tr"));
+		    
+		    for (WebElement row : rows) {
+	    		System.out.println(row.getText() + "\t");
+		    	List<WebElement> cols = row.findElements(By.tagName("td"));
+		    
+		    	for (WebElement col : cols) {
+		    		System.out.println(col.getText() + "\t");
+					if (col.equals(afterSid)){
+						fail();
+					}
+		    	}    
+		    }	
+		} catch (Error e) {
 	            verificationErrors.append(e.toString());
 		}
 	}

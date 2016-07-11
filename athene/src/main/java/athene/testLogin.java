@@ -18,7 +18,7 @@ public class testLogin {
 	public void setUp(){
 		System.setProperty("webdriver.chrome.driver", "chromedriver");
 		driver = new ChromeDriver();
-		driver.get("http://10.61.11.50:8009/");
+		driver.get("http://10.61.11.71:8009/");
 		
     	driver.manage().window().maximize();
 
@@ -62,7 +62,7 @@ public class testLogin {
 			WebElement passwd = driver.findElement(By.name("pw"));
 			WebElement login = driver.findElement(By.id("submit"));
 			
-			username.sendKeys("admin");
+			username.sendKeys("athene");
 			Thread.sleep(1000);
 			passwd.sendKeys("invaild");
 			Thread.sleep(1000);
@@ -91,9 +91,9 @@ public class testLogin {
 			WebElement passwd = driver.findElement(By.name("pw"));
 			WebElement login = driver.findElement(By.id("submit"));
 			
-			username.sendKeys("admin");
+			username.sendKeys("athene");
 			Thread.sleep(1000);
-			passwd.sendKeys("openstack");
+			passwd.sendKeys("athene");
 			Thread.sleep(1000);
 			
 			login.submit();

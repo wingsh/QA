@@ -22,7 +22,7 @@ public class testObjectNetwork {
 	public void setUp(){
 		System.setProperty("webdriver.chrome.driver", "chromedriver");
 		driver = new ChromeDriver();
-		driver.get("http://10.61.11.50:8009/");
+		driver.get("http://10.61.11.71:8009/");
 		
     	driver.manage().window().maximize();
 
@@ -34,8 +34,8 @@ public class testObjectNetwork {
 		WebElement login = driver.findElement(By.id("submit"));		
 
 		// Login
-		username.sendKeys("admin");
-		passwd.sendKeys("openstack");
+		username.sendKeys("athene");
+		passwd.sendKeys("athene");
 		
 		login.submit();
 		
@@ -152,6 +152,7 @@ public class testObjectNetwork {
 			
 			assertEquals(beforeNetwork,afterSid);
 			
+		    Thread.sleep(3000);			
 
 			} catch (Error e) {
 	            verificationErrors.append(e.toString());
@@ -184,8 +185,19 @@ public class testObjectNetwork {
 	@Test
 	public void testDeleteNetwork() throws InterruptedException {
 		try {
+			WebElement createdSid1 = driver.findElement(By.xpath("(//label[@class='ng-scope ng-isolate-scope'])[last()-4]"));
+			WebElement createdSid2 = driver.findElement(By.xpath("(//label[@class='ng-scope ng-isolate-scope'])[last()-4]"));
+
+			String afterSid1 = createdSid1.getAttribute("innerHTML");
+			String afterSid2 = createdSid2.getAttribute("innerHTML");
+
+			System.out.println(afterSid1);
+			System.out.println(afterSid2);
+			
 			// 생성된 마지막 Row의 Node checkbox
 			driver.findElement(By.xpath("(//input[@type='checkbox'])[last()]")).click();
+			driver.findElement(By.xpath("(//input[@type='checkbox'])[last()-1]")).click();
+
 			// Publish Button
 			WebElement btn_del = driver.findElement(By.xpath("//i[@class='fa fa-minus fa-fw']"));
 		    WebElement btn_pub = driver.findElement(By.xpath("//i[@class='fa fa-floppy-o fa-fw']"));
@@ -196,32 +208,21 @@ public class testObjectNetwork {
 
 		    driver.navigate().refresh();
 			
-		    List<WebElement> networks = driver.findElements(By.xpath("//label[@class='ng-scope ng-isolate-scope']"));
-			WebElement createdNetwork = driver.findElement(By.xpath("(//label[@class='ng-scope ng-isolate-scope'])[last()-4]"));
-			String afterNetwork = createdNetwork.getAttribute("innerHTML");
-			System.out.println(afterNetwork);
-			
-		    for (WebElement network : networks){
-		    	System.out.println(network.getAttribute("innerHTML"));
-				if (network.equals(afterNetwork)){
-					fail();
-				}
-		    }
+		    WebElement nodeTable = driver.findElement(By.xpath("//table[@ng-dblclick='model.mouseClick(attr, $event)']"));
+		    List<WebElement> rows = nodeTable.findElements(By.tagName("tr"));
 		    
-			Thread.sleep(3000);
-
-			driver.findElement(By.xpath("(//input[@type='checkbox'])[last()]")).click();
-			Thread.sleep(1000);
-
-			WebElement btn_del2 = driver.findElement(By.xpath("//i[@class='fa fa-minus fa-fw']"));
-			WebElement btn_pub2 = driver.findElement(By.xpath("//i[@class='fa fa-minus fa-fw']"));
-
-
-			btn_del2.click();
-			Thread.sleep(1000);
-			btn_pub2.click();
-			
-			} catch (Error e) {
+		    for (WebElement row : rows) {
+	    		System.out.println(row.getText() + "\t");
+		    	List<WebElement> cols = row.findElements(By.tagName("td"));
+		    
+		    	for (WebElement col : cols) {
+		    		System.out.println(col.getText() + "\t");
+					if ((col.equals(afterSid1)) || (col.equals(afterSid2))){
+						fail();
+					}
+		    	}     
+		    }		
+		} catch (Error e) {
 	            verificationErrors.append(e.toString());
 		}
 	}

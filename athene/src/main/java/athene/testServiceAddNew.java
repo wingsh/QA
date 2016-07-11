@@ -18,7 +18,7 @@ public class testServiceAddNew {
 	public void setUp(){
 		System.setProperty("webdriver.chrome.driver", "chromedriver");
 		driver = new ChromeDriver();
-		driver.get("http://10.61.11.50:8009/");
+		driver.get("http://10.61.11.71:8009/");
 		
     	driver.manage().window().maximize();
 
@@ -30,8 +30,8 @@ public class testServiceAddNew {
 		WebElement login = driver.findElement(By.id("submit"));		
 
 		// Login
-		username.sendKeys("admin");
-		passwd.sendKeys("openstack");
+		username.sendKeys("athene");
+		passwd.sendKeys("athene");
 		
 		login.submit();
 		
@@ -47,7 +47,7 @@ public class testServiceAddNew {
 	@Test
 	public void testNode() throws InterruptedException {
 		try {
-			// Scenario
+			System.out.println("Not Implement");
 			
 			} catch (Error e) {
 	            verificationErrors.append(e.toString());

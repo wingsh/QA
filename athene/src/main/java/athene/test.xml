@@ -14,4 +14,9 @@
 			<class name="athene.testObjectGroup" /> 
 		</classes>
 	</test>
+		<test name="NS" >
+		<classes>
+			<class name="athene.testServiceAddNew" /> 
+		</classes>
+	</test>
 </suite>

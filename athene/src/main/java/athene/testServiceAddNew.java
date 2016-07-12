@@ -4,7 +4,10 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.WebDriver;
@@ -35,6 +38,7 @@ public class testServiceAddNew {
 		passwd.sendKeys("athene");
 		
 		login.submit();
+		driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 		
         WebElement m_menu_service = driver.findElement(By.xpath("//*[contains(text(), 'Service')]"));
 		WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -43,12 +47,48 @@ public class testServiceAddNew {
 		
         WebElement s_menu_addnew = driver.findElement(By.xpath("//*[contains(text(), 'Add New')]"));
         s_menu_addnew.click();
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+
 	}
 	
 	@Test
-	public void testNode() throws InterruptedException {
+	public void testNS() throws InterruptedException {
+		WebElement nsTitle =  driver.findElement(By.xpath("//input[@class='isul-border-line ng-pristine ng-untouched ng-valid']"));
+		WebElement nsDescription =  driver.findElement(By.xpath("//textarea[@class='isul-border-line ng-pristine ng-untouched ng-valid']"));
+
+		nsTitle.sendKeys("atheneAutoTest");
+		nsDescription.sendKeys("atheneAutoTest");
+		Thread.sleep(3000);
+		
+		WebElement nsPanel = driver.findElement(By.className("isul-svg-panel"));
+		WebElement simpleFW = driver.findElement(By.id("nfdg-001:nfd-849182"));
+		WebElement attoLB = driver.findElement(By.id("nfdg-004:nfd-215490"));
+		WebElement filter = driver.findElement(By.id("nfdg-005:nfd-018391"));
+
+		
+		Actions operation = new Actions(driver);
+		operation.dragAndDrop(simpleFW, nsPanel).perform();
+		operation.dragAndDrop(attoLB, nsPanel).perform();
+		operation.dragAndDrop(filter, nsPanel).perform();
+		
+		//port
+		WebElement vportIn = driver.findElement(By.id("vport-ns-in"));
+		WebElement vportOut = driver.findElement(By.id("vport-ns-out"));
+
+		int vportInWidth = vportIn.getSize().getWidth();
+        System.out.println("size of port-in : " + vportInWidth);
+        int vportInHeight = (vportIn.getSize().getHeight())/2;
+        System.out.println("size of port-in : " + vportInHeight);
+
+        int vportOutHeight = (vportIn.getSize().getHeight())/2;
+        System.out.println("size of port-out : " + vportOutHeight);
+        
+        operation.moveToElement(vportIn,vportInWidth,vportInHeight).clickAndHold().moveToElement(vportOut,0,vportOutHeight).build().perform();;      
+
+		Thread.sleep(3000);    
+		
 		try {
-			System.out.println("Not Implement");
+			//assertEquals("Dropped", nsPanel.getText());
 			
 			} catch (Error e) {
 	            verificationErrors.append(e.toString());
@@ -56,11 +96,11 @@ public class testServiceAddNew {
 	}
     @AfterTest
     public void tearDown() throws Exception {
+        //driver.quit();
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);
         }
-        driver.quit();
     }
 
 }

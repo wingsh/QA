@@ -76,6 +76,8 @@ public class testServiceAddNew {
 	   
 	    for (WebElement vnf : vnfList) {
     		System.out.println(vnf.getAttribute("innerHTML"));
+    	    WebElement test = vnf.findElement(By.xpath(".."));
+    		System.out.println(test.getAttribute("id"));
 	    }
 		
 	

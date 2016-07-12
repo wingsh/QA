@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -71,6 +72,13 @@ public class testServiceAddNew {
 		operation.dragAndDrop(attoLB, nsPanel).perform();
 		operation.dragAndDrop(filter, nsPanel).perform();
 		
+	    List<WebElement> vnfList = driver.findElements(By.className("isul-svg-nf-title"));
+	   
+	    for (WebElement vnf : vnfList) {
+    		System.out.println(vnf.getAttribute("innerHTML"));
+	    }
+		
+	
 		//port
 		WebElement vportIn = driver.findElement(By.id("vport-ns-in"));
 		WebElement vportOut = driver.findElement(By.id("vport-ns-out"));
@@ -96,7 +104,7 @@ public class testServiceAddNew {
 	}
     @AfterTest
     public void tearDown() throws Exception {
-        //driver.quit();
+        driver.quit();
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);

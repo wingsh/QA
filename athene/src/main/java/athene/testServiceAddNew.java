@@ -76,8 +76,12 @@ public class testServiceAddNew {
 	   
 	    for (WebElement vnf : vnfList) {
     		System.out.println(vnf.getAttribute("innerHTML"));
-    	    WebElement test = vnf.findElement(By.xpath(".."));
-    		System.out.println(test.getAttribute("id"));
+    	    WebElement vnfID = vnf.findElement(By.xpath(".."));
+    		System.out.println(vnfID.getAttribute("id"));
+    	    List<WebElement> vnfPort = vnfID.findElements(By.cssSelector("circle"));
+    	    for (WebElement id : vnfPort) {
+        		System.out.println("port id is "+id.getAttribute("id"));
+    	    }
 	    }
 		
 	
@@ -86,12 +90,12 @@ public class testServiceAddNew {
 		WebElement vportOut = driver.findElement(By.id("vport-ns-out"));
 
 		int vportInWidth = vportIn.getSize().getWidth();
-        System.out.println("size of port-in : " + vportInWidth);
+        //System.out.println("size of port-in : " + vportInWidth);
         int vportInHeight = (vportIn.getSize().getHeight())/2;
-        System.out.println("size of port-in : " + vportInHeight);
+        //System.out.println("size of port-in : " + vportInHeight);
 
         int vportOutHeight = (vportIn.getSize().getHeight())/2;
-        System.out.println("size of port-out : " + vportOutHeight);
+        //System.out.println("size of port-out : " + vportOutHeight);
         
         operation.moveToElement(vportIn,vportInWidth,vportInHeight).clickAndHold().moveToElement(vportOut,0,vportOutHeight).build().perform();;      
 

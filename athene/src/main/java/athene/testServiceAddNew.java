@@ -73,16 +73,48 @@ public class testServiceAddNew {
 		operation.dragAndDrop(filter, nsPanel).perform();
 		
 	    List<WebElement> vnfList = driver.findElements(By.className("isul-svg-nf-title"));
+	    
+	    System.out.println("=== VNF id information ===");
+	    String vportInID = vnfList.get(0).findElement(By.xpath("..")).getAttribute("id");
+	    System.out.println("vport-in id is "+ vportInID);
+	    String vportOutID = vnfList.get(1).findElement(By.xpath("..")).getAttribute("id");
+	    System.out.println("vport-out id is "+ vportOutID);
+	    String simpleFWID = vnfList.get(2).findElement(By.xpath("..")).getAttribute("id");
+	    System.out.println("simple-FW id is "+ simpleFWID);
+	    String attoLBID = vnfList.get(3).findElement(By.xpath("..")).getAttribute("id");
+	    System.out.println("attoLB id is "+ attoLBID);
+	    String filterID = vnfList.get(4).findElement(By.xpath("..")).getAttribute("id");
+	    System.out.println("filter id is "+ filterID);
+	    System.out.println("================");
+	    
+	    List<WebElement> vnf = driver.findElements(By.cssSelector("circle"));
+	    WebElement vport_in_In = vnf.get(0);
+	    WebElement vport_out_Out = vnf.get(1);
+	    WebElement simpleFW_In = vnf.get(2);
+	    WebElement simpleFW_Out = vnf.get(3);
+	    WebElement attoLB_In = vnf.get(4);
+	    WebElement attoLB_Out = vnf.get(5);
+	    WebElement filter_In = vnf.get(6);
+	    WebElement filter_Out = vnf.get(7);
+
+	    System.out.println("vport_in_In id is" + vport_in_In.getAttribute("id"));
+	    System.out.println("vport_out_Out id is" + vport_out_Out.getAttribute("id"));
+	    System.out.println("simpleFW_In id is" + simpleFW_In.getAttribute("id"));
+	    System.out.println("simpleFW_Out id is" + simpleFW_Out.getAttribute("id"));
+	    System.out.println("attoLB_In id is" + attoLB_In.getAttribute("id"));
+	    System.out.println("attoLB_Out id is" + attoLB_Out.getAttribute("id"));
+	    System.out.println("filter_In id is" + filter_In.getAttribute("id"));
+	    System.out.println("filter_Out id is" + filter_Out.getAttribute("id"));
+
 	   
-	    for (WebElement vnf : vnfList) {
-    		System.out.println(vnf.getAttribute("innerHTML"));
-    	    WebElement vnfID = vnf.findElement(By.xpath(".."));
-    		System.out.println(vnfID.getAttribute("id"));
-    	    List<WebElement> vnfPort = vnfID.findElements(By.cssSelector("circle"));
-    	    for (WebElement id : vnfPort) {
-        		System.out.println("port id is "+id.getAttribute("id"));
-    	    }
-	    }
+	   /* 
+	    System.out.println(vnfList.get(0).findElement(By.xpath("..")).findElement(By.cssSelector("circle")).getAttribute("id"));
+	    System.out.println(vnfList.get(1).findElement(By.xpath("..")).findElement(By.cssSelector("circle")).getAttribute("id"));
+	    System.out.println(vnfList.get(2).findElement(By.xpath("..")).findElement(By.cssSelector("circle")).getAttribute("id"));
+	    System.out.println(vnfList.get(3).findElement(By.xpath("..")).findElement(By.cssSelector("circle")).get(0).getAttribute("id"));
+	    System.out.println(vnfList.get(3).findElement(By.xpath("..")).findElement(By.cssSelector("circle")).getAttribute("id"));
+	    System.out.println(vnfList.get(4).findElement(By.xpath("..")).findElement(By.cssSelector("circle")).getAttribute("id"));
+		*/
 		
 	
 		//port

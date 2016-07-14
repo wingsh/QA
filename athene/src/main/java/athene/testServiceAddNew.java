@@ -3,9 +3,11 @@ import org.testng.annotations.*;
 import org.testng.annotations.Test;
 import static org.testng.Assert.*;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.WebDriver;
@@ -53,12 +55,12 @@ public class testServiceAddNew {
 	@Test
 	public void testNS() throws InterruptedException {
 		Thread.sleep(3000);
-		/*
+
 		WebElement nsTitle =  driver.findElement(By.xpath("//input[@class='isul-border-line ng-pristine ng-untouched ng-valid']"));
 		WebElement nsDescription =  driver.findElement(By.xpath("//textarea[@class='isul-border-line ng-pristine ng-untouched ng-valid']"));
 
 		nsTitle.sendKeys("atheneAutoTest");
-		nsDescription.sendKeys("atheneAutoTest");
+		nsDescription.sendKeys("atheneAutoTestDescription");
 		Thread.sleep(3000);
 	
 		Actions operation = new Actions(driver);
@@ -73,32 +75,46 @@ public class testServiceAddNew {
 		WebElement simpleFW = driver.findElement(By.id("nfdg-001:nfd-849182"));
 		WebElement attoLB = driver.findElement(By.id("nfdg-004:nfd-215490"));
 
+		int nsPanel_X = nsPanel.getLocation().getX();
+		System.out.println("nsPanel_X : " + nsPanel_X);
+        int nsPanel_Y = nsPanel.getLocation().getY();
+		System.out.println("nsPanelY : " + nsPanel_Y);
+		
 		int nsPanel_Width = nsPanel.getSize().getWidth();
 		System.out.println("nsPanel_Width : " + nsPanel_Width);
         int nsPanel_Height = nsPanel.getSize().getHeight();
 		System.out.println("nsPanel_Height : " + nsPanel_Height);
 
+		WebElement test1 = driver.findElement(By.id("vbox-vport-ns-in"));
+		operation.clickAndHold(test1).moveByOffset(nsPanel_X-300, nsPanel_X-100).release().perform();
+		Thread.sleep(2000);
+
+		WebElement test2 = driver.findElement(By.id("vbox-vport-ns-out"));
+		operation.clickAndHold(test2).moveByOffset(nsPanel_X+100, nsPanel_X-100).release().perform();
+
 		operation.dragAndDrop(filter, nsPanel).build().perform();
 		Thread.sleep(2000);
 
-		List<WebElement> test1 = driver.findElements(By.className("isul-svg-nf-title"));
-	    WebElement test1_1 = test1.get(2);
-	    operation.moveToElement(test1_1).clickAndHold().moveToElement(nsPanel, (nsPanel_Width/2)+50, (nsPanel_Height/2)+100).build().perform();
+		
+		List<WebElement> test3 = driver.findElements(By.className("isul-svg-nf-title"));
+	    WebElement test3_1 = test3.get(2).findElement(By.xpath("..")).findElement(By.tagName("use"));
+	    System.out.println(test3_1.getAttribute("id"));
+	    operation.moveToElement(test3_1).clickAndHold().moveToElement(nsPanel, (nsPanel_Width/2)-150, nsPanel_X).build().perform();
+		Thread.sleep(2000);
+		
+		operation.dragAndDrop(attoLB, nsPanel).build().perform();
+		Thread.sleep(2000);
+
+	    List<WebElement> test4 = driver.findElements(By.className("isul-svg-nf-title"));
+	    WebElement test4_1 = test4.get(3).findElement(By.xpath("..")).findElement(By.tagName("use"));
+	    System.out.println(test4_1.getAttribute("id"));
+	    operation.moveToElement(test4_1).clickAndHold().moveToElement(nsPanel, (nsPanel_Width/2)+150, nsPanel_X).build().perform();
 		Thread.sleep(2000);
 		
 		operation.dragAndDrop(simpleFW, nsPanel).build().perform();
 		Thread.sleep(2000);	
 		
-	    List<WebElement> test2 = driver.findElements(By.className("isul-svg-nf-title"));
-	    WebElement test2_1 = test2.get(2);
-	    operation.moveToElement(test2_1).clickAndHold().moveToElement(nsPanel, (nsPanel_Width/2)-150, (nsPanel_Height/2)+50).build().perform();
-		Thread.sleep(2000);
-		
-		operation.dragAndDrop(attoLB, nsPanel).build().perform();
-		Thread.sleep(2000);
-		
-	    //List<WebElement> vnfList = driver.findElements(By.className("isul-svg-nf-title"));
-	    
+		List<WebElement> vnfList = driver.findElements(By.className("isul-svg-nf-title"));
 	    
 	    System.out.println("=== VNF id information ===");
 	    WebElement vportInID = vnfList.get(0);
@@ -110,12 +126,11 @@ public class testServiceAddNew {
 	    WebElement filterID = vnfList.get(2);
 	    System.out.println("filter id is "+ filterID.findElement(By.xpath("..")).getAttribute("id"));
 	    
-	    WebElement simpleFWID = vnfList.get(3);
-	    System.out.println("simple-FW id is "+ simpleFWID.findElement(By.xpath("..")).getAttribute("id"));
+	    WebElement attoLBID = vnfList.get(3);
+	    System.out.println("attoLB id is "+ attoLBID.findElement(By.xpath("..")).getAttribute("id"));	
 	    
-	    WebElement attoLBID = vnfList.get(4);
-	    System.out.println("attoLB id is "+ attoLBID.findElement(By.xpath("..")).getAttribute("id"));
-	
+	    WebElement simpleFWID = vnfList.get(4);
+	    System.out.println("simple-FW id is "+ simpleFWID.findElement(By.xpath("..")).getAttribute("id"));
 
 	    System.out.println("================");
 	    
@@ -125,10 +140,10 @@ public class testServiceAddNew {
 	    WebElement vportOut_In = vnf.get(1);
 	    WebElement filter_In = vnf.get(2);
 	    WebElement filter_Out = vnf.get(3);
-	    WebElement simpleFW_In = vnf.get(4);
-	    WebElement simpleFW_Out = vnf.get(5);
-	    WebElement attoLB_In = vnf.get(6);
-	    WebElement attoLB_Out = vnf.get(7);
+	    WebElement attoLB_In = vnf.get(4);
+	    WebElement attoLB_Out = vnf.get(5);
+	    WebElement simpleFW_In = vnf.get(6);
+	    WebElement simpleFW_Out = vnf.get(7);
 
 	    System.out.println("vport in Out port id is " + vportIn_Out.getAttribute("id"));
 	    System.out.println("vport out In port id is " + vportOut_In.getAttribute("id"));
@@ -155,22 +170,26 @@ public class testServiceAddNew {
         int attoLB_In_Height = (attoLB_In.getSize().getHeight())/2;
         int attoLB_Out_Width = (attoLB_Out.getSize().getWidth())/2;
         int attoLB_Out_Height = (attoLB_Out.getSize().getHeight())/2;
+
         
-        operation.moveToElement(vportIn_Out,vportIn_Out_Width+2,vportIn_Out_Height).clickAndHold().moveToElement(filter_In,filter_In_Width-2,filter_In_Height).build().perform();     
+        operation.moveToElement(vportIn_Out,vportIn_Out_Width+2,vportIn_Out_Height).clickAndHold().moveToElement(filter_In,filter_In_Width,filter_In_Height).release().perform();     
         Thread.sleep(2000);
-        //operation.moveToElement(filter_Out,filter_Out_Width+2,filter_Out_Height).clickAndHold().moveToElement(simpleFW_In,simpleFW_In_Width-2,simpleFW_In_Height).build().perform();      
-        //Thread.sleep(2000);
-        //operation.moveToElement(simpleFW_Out,simpleFW_Out_Width+2,simpleFW_Out_Height).clickAndHold().moveToElement(attoLB_In,attoLB_In_Width-2,attoLB_In_Height).build().perform();  
-        //Thread.sleep(2000);
-        //operation.moveToElement(attoLB_Out,attoLB_Out_Width+2,attoLB_Out_Height).clickAndHold().moveToElement(vportOut_In,vportOut_In_Width-2,vportOut_In_Height).build().perform();;      
-        //Thread.sleep(2000);
+
         
+        operation.moveToElement(filter_Out,filter_Out_Width+2,filter_Out_Height).clickAndHold().moveToElement(simpleFW_In,simpleFW_In_Width,simpleFW_In_Height).release().perform();      
+        Thread.sleep(2000);
+
+        operation.moveToElement(simpleFW_Out,simpleFW_Out_Width+2,simpleFW_Out_Height).clickAndHold().moveToElement(attoLB_In,attoLB_In_Width,attoLB_In_Height).release().perform();  
+        Thread.sleep(2000);
+        
+        operation.moveToElement(attoLB_Out,attoLB_Out_Width+2,attoLB_Out_Height).clickAndHold().moveToElement(vportOut_In,vportOut_In_Width,vportOut_In_Height).release().perform();;      
+        Thread.sleep(2000);
+
 	    WebElement save = driver.findElement(By.xpath("//i[@class='fa fa-save']"));
 	    save.click();
 	    
-	    Thread.sleep(3000);
-	    */
-	    
+	    Thread.sleep(3000);    
+		
 	    //WebElement m_menu_service = driver.findElement(By.xpath("//*[contains(text(), 'Service')]"));
 		//WebDriverWait wait = new WebDriverWait(driver, 10);
 		//wait.until(ExpectedConditions.visibilityOf(m_menu_service));
@@ -180,7 +199,6 @@ public class testServiceAddNew {
 		
 		WebElement searchField = driver.findElement(By.xpath("//input[@placeholder='Search Services']"));
 		searchField.sendKeys("atheneAutoTest");
-
 		
 		try {
 			//assertEquals("Dropped", nsPanel.getText());
@@ -190,8 +208,6 @@ public class testServiceAddNew {
 			}
 		
 	}
-		
-
 
 	@AfterTest
     public void tearDown() throws Exception {

@@ -73,21 +73,24 @@ public class testObjectNode {
 		    List<WebElement> name = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement nameValue = name.get(1);
 		    nameValue.sendKeys("autotest");
+			Thread.sleep(1000);
 		    
 		    List<WebElement> ipv4 = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement ipv4Value = ipv4.get(2);
 		    ipv4Value.sendKeys("0.0.0.0");
+			Thread.sleep(1000);
 
 		    List<WebElement> description = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement descriptionVaule = description.get(3);
 		    descriptionVaule.sendKeys("for Auto Test");
+			Thread.sleep(1000);
 		    
-		    Thread.sleep(1000);
-		    btn_pub.click();
+			btn_pub.click();
+			Thread.sleep(1000);
 		    
 		    // Page Refresh
 		    driver.navigate().refresh();
-		    
+			Thread.sleep(1000);
 			
 			WebElement createdSid = driver.findElement(By.xpath("(//label[@class='ng-scope ng-isolate-scope'])[last()-3]"));
 			String afterSid = createdSid.getAttribute("innerHTML");
@@ -141,8 +144,10 @@ public class testObjectNode {
 			btn_del.click();
 			Thread.sleep(1000);
 			btn_pub.click();
+			Thread.sleep(1000);
 
 		    driver.navigate().refresh();
+			Thread.sleep(1000);
 			
 		    WebElement nodeTable = driver.findElement(By.xpath("//table[@ng-dblclick='model.mouseClick(attr, $event)']"));
 		    List<WebElement> rows = nodeTable.findElements(By.tagName("tr"));

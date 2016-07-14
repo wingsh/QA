@@ -71,24 +71,30 @@ public class testObjectRange {
 		    List<WebElement> name = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement nameValue = name.get(1);
 		    nameValue.sendKeys("autotest");
+			Thread.sleep(1000);
 		    
 		    List<WebElement> start = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement startValue = start.get(2);
 		    startValue.sendKeys("0.0.0.0");
+			Thread.sleep(1000);
 		    
 		    List<WebElement> end = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement endValue = end.get(3);
 		    endValue.sendKeys("0.0.0.0");
+			Thread.sleep(1000);
+
 
 		    List<WebElement> description = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement descriptionVaule = description.get(4);
 		    descriptionVaule.sendKeys("for Auto Test");
+			Thread.sleep(1000);
 		    
-		    Thread.sleep(1000);
-		    btn_pub.click();
+			btn_pub.click();
+			Thread.sleep(1000);
 		    
 		    // Page Refresh
 		    driver.navigate().refresh();
+			Thread.sleep(1000);
 		    
 			
 			WebElement createdSid = driver.findElement(By.xpath("(//label[@class='ng-scope ng-isolate-scope'])[last()-4]"));
@@ -146,8 +152,10 @@ public class testObjectRange {
 			btn_del.click();
 			Thread.sleep(1000);
 			btn_pub.click();
+			Thread.sleep(1000);
 
 		    driver.navigate().refresh();
+			Thread.sleep(1000);
 			
 		    WebElement nodeTable = driver.findElement(By.xpath("//table[@ng-dblclick='model.mouseClick(attr, $event)']"));
 		    List<WebElement> rows = nodeTable.findElements(By.tagName("tr"));

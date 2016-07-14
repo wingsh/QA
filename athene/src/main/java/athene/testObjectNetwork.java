@@ -72,28 +72,34 @@ public class testObjectNetwork {
 		    List<WebElement> name = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement nameValue = name.get(1);
 		    nameValue.sendKeys("autotest1");
+			Thread.sleep(1000);
 		    
 		    List<WebElement> ipv4 = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement ipv4Value = ipv4.get(2);
 		    ipv4Value.sendKeys("0.0.0.0");
+			Thread.sleep(1000);
 		    
 		    List<WebElement> mask = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement maskValueValue = mask.get(3);
 		    maskValueValue.sendKeys("0.0.0.0");
+			Thread.sleep(1000);
 		    
 		    Select make = new Select(driver.findElement(By.xpath("//td[@id='0-4']/div/form/select")));
 		    //assertEquals(2,make.getOptions().size());
 		    make.selectByVisibleText("included");
+			Thread.sleep(1000);
 
 		    List<WebElement> description = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement descriptionVaule = description.get(4);
 		    descriptionVaule.sendKeys("for Auto Test");
+			Thread.sleep(1000);
 		    
-		    Thread.sleep(1000);
-		    btn_pub.click();
+			btn_pub.click();
+			Thread.sleep(1000);
 		    
 		    // Page Refresh
 		    driver.navigate().refresh();
+			Thread.sleep(1000);
 		    
 			
 			WebElement createdNetwork = driver.findElement(By.xpath("(//label[@class='ng-scope ng-isolate-scope'])[last()-4]"));
@@ -125,36 +131,41 @@ public class testObjectNetwork {
 		    List<WebElement> name = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement nameValue = name.get(1);
 		    nameValue.sendKeys("autotest2");
+			Thread.sleep(1000);
 		    
 		    List<WebElement> ipv4 = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement ipv4Value = ipv4.get(2);
 		    ipv4Value.sendKeys("0.0.0.0");
+			Thread.sleep(1000);
 		    
 		    List<WebElement> mask = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement maskValueValue = mask.get(3);
 		    maskValueValue.sendKeys("0.0.0.0");
+			Thread.sleep(1000);
 		    
 		    Select make = new Select(driver.findElement(By.xpath("//td[@id='0-4']/div/form/select")));
 		    //assertEquals(2,make.getOptions().size());
 		    make.selectByVisibleText("excluded");
+			Thread.sleep(1000);
 
 		    List<WebElement> description = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement descriptionVaule = description.get(4);
 		    descriptionVaule.sendKeys("for Auto Test");
+			Thread.sleep(1000);
 		    
-		    Thread.sleep(1000);
 		    btn_pub.click();
+			Thread.sleep(1000);
 		    
 		    // Page Refresh
 		    driver.navigate().refresh();
+			Thread.sleep(1000);
 		    
 			
 			WebElement createdNetwork = driver.findElement(By.xpath("(//label[@class='ng-scope ng-isolate-scope'])[last()-4]"));
 			String afterSid = createdNetwork.getAttribute("innerHTML");
 			System.out.println(afterSid);
 			
-			assertEquals(beforeNetwork,afterSid);
-			
+			assertEquals(beforeNetwork,afterSid);		
 		    Thread.sleep(3000);			
 
 			} catch (Error e) {
@@ -208,8 +219,10 @@ public class testObjectNetwork {
 			btn_del.click();
 			Thread.sleep(1000);
 			btn_pub.click();
+			Thread.sleep(1000);
 
 		    driver.navigate().refresh();
+			Thread.sleep(1000);
 			
 		    WebElement nodeTable = driver.findElement(By.xpath("//table[@ng-dblclick='model.mouseClick(attr, $event)']"));
 		    List<WebElement> rows = nodeTable.findElements(By.tagName("tr"));

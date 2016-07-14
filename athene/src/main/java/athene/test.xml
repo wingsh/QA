@@ -6,11 +6,23 @@
 			<class name="athene.testLogin" />
 		</classes>
 	</test>
-	<test name="Object" >
+	<test name="Object - Node" >
 		<classes>
 			<class name="athene.testObjectNode" /> 
+		</classes>
+	</test>
+		<test name="Object - Network" >
+		<classes>
 			<class name="athene.testObjectNetwork" /> 
+		</classes>
+	</test>
+		<test name="Object - Range" >
+		<classes>
 			<class name="athene.testObjectRange" /> 
+		</classes>
+	</test>
+		<test name="Object - Group" >
+		<classes>
 			<class name="athene.testObjectGroup" /> 
 		</classes>
 	</test>

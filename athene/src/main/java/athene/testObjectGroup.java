@@ -71,28 +71,33 @@ public class testObjectGroup {
 		    List<WebElement> name = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement nameValue = name.get(1);
 		    nameValue.sendKeys("autotest");
+			Thread.sleep(1000);
 
 		    List<WebElement> mappingList = driver.findElements(By.xpath("//button[@class='ng-scope']"));
 		    WebElement mappingListValue = mappingList.get(0);
 		    mappingListValue.click();
+			Thread.sleep(1000);
 		    
 		    WebElement any = driver.findElement(By.xpath("//option[@label='Any']"));
 		    any.click();
+			Thread.sleep(1000);
 		    
 		    List<WebElement> mappingBtn = driver.findElements(By.xpath("//button[@class='mapping-button']"));
 		    WebElement mappingBtnAdd = mappingBtn.get(0);
 		    mappingBtnAdd.click();
+			Thread.sleep(1000);
 		    
 		    WebElement closeBtn = driver.findElement(By.xpath("//button[@ng-click='model.groupPanel.close()']"));
 		    closeBtn.click();
-
+			Thread.sleep(1000);
 		    
 		    List<WebElement> description = driver.findElements(By.xpath("//input[@type='text']"));
 		    WebElement descriptionVaule = description.get(2);
 		    descriptionVaule.sendKeys("for Auto Test");
+			Thread.sleep(1000);
 		    
-		    Thread.sleep(1000);
 		    btn_pub.click();
+			Thread.sleep(1000);
 		    
 		    // Page Refresh
 		    driver.navigate().refresh();
@@ -103,11 +108,9 @@ public class testObjectGroup {
 			String afterSid = createdSid.getAttribute("innerHTML");
 			System.out.println(afterSid);
 			
-			assertEquals(beforeSid,afterSid);
+			assertEquals(beforeSid,afterSid);			
+			Thread.sleep(3000);
 			
-			Thread.sleep(5000);
-			
-
 			} catch (Error e) {
 	            verificationErrors.append(e.toString());
 		}
@@ -145,7 +148,7 @@ public class testObjectGroup {
 			
 			// 생성된 마지막 Row의 Node checkbox
 			driver.findElement(By.xpath("(//input[@type='checkbox'])[last()]")).click();
-			
+			Thread.sleep(1000);
 
 			// Publish Button
 			WebElement btn_del = driver.findElement(By.xpath("//i[@class='fa fa-minus fa-fw']"));
@@ -154,8 +157,10 @@ public class testObjectGroup {
 			btn_del.click();
 			Thread.sleep(1000);
 			btn_pub.click();
+			Thread.sleep(1000);
 
 		    driver.navigate().refresh();
+			Thread.sleep(1000);
 			
 		    WebElement nodeTable = driver.findElement(By.xpath("//table[@ng-dblclick='model.mouseClick(attr, $event)']"));
 		    List<WebElement> rows = nodeTable.findElements(By.tagName("tr"));

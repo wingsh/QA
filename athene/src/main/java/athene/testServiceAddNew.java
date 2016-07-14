@@ -50,12 +50,15 @@ public class testServiceAddNew {
 		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 
 	}
-	
 
 	@Test
 	public void testNS() throws InterruptedException {
 		Thread.sleep(3000);
-
+		
+		WebElement createNS = driver.findElement(By.className("isul-service-panel")).findElement(By.cssSelector("svg"));
+		String createNSID = createNS.getAttribute("id");
+		System.out.println("nsID is " + createNSID);
+		
 		WebElement nsTitle =  driver.findElement(By.xpath("//input[@class='isul-border-line ng-pristine ng-untouched ng-valid']"));
 		WebElement nsDescription =  driver.findElement(By.xpath("//textarea[@class='isul-border-line ng-pristine ng-untouched ng-valid']"));
 
@@ -185,8 +188,8 @@ public class testServiceAddNew {
         operation.moveToElement(attoLB_Out,attoLB_Out_Width+2,attoLB_Out_Height).clickAndHold().moveToElement(vportOut_In,vportOut_In_Width,vportOut_In_Height).release().perform();;      
         Thread.sleep(2000);
 
-	    WebElement save = driver.findElement(By.xpath("//i[@class='fa fa-save']"));
-	    save.click();
+	    WebElement saveBtn = driver.findElement(By.xpath("//i[@class='fa fa-save']"));
+	    saveBtn.click();
 	    
 	    Thread.sleep(3000);    
 		
@@ -200,6 +203,37 @@ public class testServiceAddNew {
 		WebElement searchField = driver.findElement(By.xpath("//input[@placeholder='Search Services']"));
 		searchField.sendKeys("atheneAutoTest");
 		
+		WebElement searchedNS = driver.findElement(By.className("isul-service-list-svg-panel")).findElement(By.cssSelector("svg"));
+		String searchdNSID = searchedNS.getAttribute("id");
+		System.out.println("searched NS id is " + searchdNSID);
+		
+		if (!createNSID.equals(searchdNSID)){
+			System.out.println("Failed search created NS");
+			driver.close();
+		}
+        
+		WebElement nsName = searchedNS.findElement(By.xpath("..")).findElement(By.xpath("//div[@class='ng-binding']"));
+        nsName.click();
+		Thread.sleep(2000);	
+		
+	    WebElement deleteBtn = driver.findElement(By.xpath("//i[@class='fa fa-trash']"));
+	    deleteBtn.click();
+	    
+		Thread.sleep(2000);	
+		//s_menu_serviceList.click();
+		//searchField.sendKeys("atheneAutoTest");
+
+	    
+		List<WebElement> nsNameList = driver.findElements(By.cssSelector("div > a > div > svg"));
+		for (WebElement ns : nsNameList){
+			System.out.println(ns.getAttribute("id"));
+			if (ns.getAttribute("id").equals(searchdNSID)){
+				System.out.println("failed to delete NS");
+				driver.close();
+			}else
+				System.out.println("success to delete NS");
+		}		
+		
 		try {
 			//assertEquals("Dropped", nsPanel.getText());
 			
@@ -208,6 +242,8 @@ public class testServiceAddNew {
 			}
 		
 	}
+		
+
 
 	@AfterTest
     public void tearDown() throws Exception {
